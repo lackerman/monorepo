@@ -12,11 +12,11 @@ RULES_JVM_EXTERNAL_SHA = "d85951a92c0908c80bd8551002d66cb23c3434409c814179c0ff02
 RULES_NODEJS_VERSION = "2.0.1"
 RULES_NODEJS_SHA = "0f2de53628e848c1691e5729b515022f5a77369c76a09fbe55611e12731c90e3"
 
-RULES_GO_VERSION = "0.23.6"
-RULES_GO_SHA = "8663604808d2738dc615a2c3eb70eba54a9a982089dd09f6ffe5d0e75771bc4f"
+RULES_GO_VERSION = "0.27.0"
+RULES_GO_SHA = "69de5c704a05ff37862f7e0f5534d4f479418afc21806c887db544a316f3cb6b"
 
-RULES_GAZELLE_VERSION = "0.21.1"
-RULES_GAZELLA_SHA = "cdb02a887a7187ea4d5a27452311a75ed8637379a1287d8eeb952138ea485f7d"
+RULES_GAZELLE_VERSION = "0.23.0"
+RULES_GAZELLA_SHA = "62ca106be173579c0a167deb23358fdfe71ffa1e4cfdddf5582af26520f1c66f"
 
 RULES_PROTOBUF_VERSION = "3.11.4"
 RULES_PROTOBUF_SHA = "9748c0d90e54ea09e5e75fb7fac16edce15d2028d4356f32211cfa3c0e956564"
@@ -94,7 +94,7 @@ def external_rules():
         urls = [
             "https://github.com/bazelbuild/rules_docker/releases/download/v{version}/rules_docker-v{version}.tar.gz".format(
                 version = RULES_DOCKER_VERSION,
-            )
+            ),
         ],
     )
 

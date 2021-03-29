@@ -60,15 +60,22 @@ load("@io_bazel_rules_go//go:deps.bzl", "go_register_toolchains", "go_rules_depe
 
 go_rules_dependencies()
 
-go_register_toolchains()
+go_register_toolchains(version = "1.16")
 
-load("@bazel_gazelle//:deps.bzl", "gazelle_dependencies")
+load("@bazel_gazelle//:deps.bzl", "gazelle_dependencies", "go_repository")
 
 gazelle_dependencies()
 
 load("@com_google_protobuf//:protobuf_deps.bzl", "protobuf_deps")
 
 protobuf_deps()
+
+go_repository(
+    name = "com_github_sirupsen_logrus",
+    importpath = "github.com/sirupsen/logrus",
+    sum = "h1:dJKuHgqk1NNQlqoA6BTlM1Wf9DOH3NBjQyu0h9+AZZE=",
+    version = "v1.8.1",
+)
 
 #######################################
 # Scala support
@@ -77,6 +84,7 @@ protobuf_deps()
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
 skylib_version = "1.0.3"
+
 http_archive(
     name = "bazel_skylib",
     sha256 = "1c531376ac7e5a180e0237938a2536de0c54d93f5c278634818e0efc952dd56c",
@@ -98,17 +106,22 @@ http_archive(
 # 2.12 is a default version, other versions can be use by passing them explicitly:
 # scala_config(scala_version = "2.11.12")
 load("@io_bazel_rules_scala//:scala_config.bzl", "scala_config")
+
 scala_config(scala_version = "2.13.5")
 
 load("@io_bazel_rules_scala//scala:scala.bzl", "scala_repositories")
+
 scala_repositories()
 
 load("@io_bazel_rules_scala//scala:toolchains.bzl", "scala_register_toolchains")
+
 scala_register_toolchains()
 
 # optional: setup ScalaTest toolchain and dependencies
 load("@io_bazel_rules_scala//testing:scalatest.bzl", "scalatest_repositories", "scalatest_toolchain")
+
 scalatest_repositories()
+
 scalatest_toolchain()
 
 #######################################
@@ -145,10 +158,10 @@ pip_deps()
 load("@io_bazel_rules_docker//container:container.bzl", "container_pull")
 
 container_pull(
-  name = "java11_arm",
-  registry = "index.docker.io",
-  repository = "library/openjdk",
-  tag = "latest",
+    name = "java11_arm",
+    registry = "index.docker.io",
+    repository = "library/openjdk",
+    tag = "latest",
 )
 
 #######################################

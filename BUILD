@@ -1,4 +1,5 @@
 load("@com_github_bazelbuild_buildtools//buildifier:def.bzl", "buildifier")
+load("@bazel_gazelle//:def.bzl", "gazelle")
 
 buildifier(
     name = "buildifier",
@@ -17,4 +18,9 @@ exports_files(
     ],
     # https://docs.bazel.build/versions/master/skylark/build-style.html#visibility
     visibility = ["//:__subpackages__"],
+)
+
+# gazelle:prefix github.com/lackerman
+gazelle(
+    name = "gazelle",
 )
