@@ -83,11 +83,11 @@ java_plugin(
     name = "io_micronaut_data_micronaut_data_processor",
     generates_api = True,
     deps = [
+        "@maven//:io_micronaut_data_micronaut_data_processor",
         "@maven//:io_micronaut_micronaut_aop",
         "@maven//:io_micronaut_micronaut_inject",
         "@maven//:io_micronaut_micronaut_inject_java",
         "@maven//:io_micronaut_micronaut_validation",
-        "@maven//:io_micronaut_data_micronaut_data_processor"
     ],
 )
 
@@ -103,10 +103,10 @@ java_library(
     ],
     visibility = ["//visibility:public"],
     exports = [
+        "@maven//:io_micronaut_data_micronaut_data_processor",
         "@maven//:io_micronaut_micronaut_aop",
         "@maven//:io_micronaut_micronaut_inject",
         "@maven//:io_micronaut_micronaut_inject_java",
         "@maven//:io_micronaut_micronaut_validation",
-        "@maven//:io_micronaut_data_micronaut_data_processor"
     ],
 )

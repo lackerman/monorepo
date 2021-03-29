@@ -34,12 +34,16 @@ java_library(
         # JPA annotations
         "@maven//:jakarta_persistence_jakarta_persistence_api",
         # HTML parsing
-        "@maven//:org_jsoup_jsoup"
+        "@maven//:org_jsoup_jsoup",
     ],
 )
 
 java_binary(
     name = "app",
+    jvm_flags = [
+        "--add-opens java.base/jdk.internal.misc=ALL-UNNAMED",
+        "-Dio.netty.tryReflectionSetAccessible=true",
+    ],
     main_class = "me.a6n.bookmarker.micronaut.App",
     resource_strip_prefix = "bookmarker/server/src/main/resources",
     resources = [
@@ -54,8 +58,4 @@ java_binary(
         "@maven//:com_h2database_h2",
         "@maven//:io_micronaut_sql_micronaut_jdbc_hikari",
     ],
-    jvm_flags = [
-        "--add-opens java.base/jdk.internal.misc=ALL-UNNAMED",
-        "-Dio.netty.tryReflectionSetAccessible=true",
-    ]
 )
