@@ -1,3 +1,0 @@
-[submodule "infrastructure/ansible/cluster"]
-	path = infrastructure/ansible/cluster
-	url = git@github.com:lackerman/rpi-k8s-ansible.git
