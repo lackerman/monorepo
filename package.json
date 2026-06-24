@@ -6,7 +6,7 @@
     "build": "bazel build //..."
   },
   "devDependencies": {
-    "@babel/core": "^7.11.0",
+    "@babel/core": "^7.29.6",
     "@bazel/ibazel": "latest",
     "@bazel/rollup": "^2.0.1",
     "@bazel/typescript": "^2.0.1",
