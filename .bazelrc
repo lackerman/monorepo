@@ -1,15 +1,8 @@
-# Use a locally install JDK instead of the one provided by Bazel
-# build --define=ABSOLUTE_JAVABASE=<path to local java>
-# build --javabase=@bazel_tools//tools/jdk:absolute_javabase
-# build --host_javabase=@bazel_tools//tools/jdk:absolute_javabase
-# build --host_java_toolchain=@bazel_tools//tools/jdk:toolchain_vanilla
-# build --java_toolchain=@bazel_tools//tools/jdk:toolchain_vanilla
-
-# Use the java tool chain provided by bazel
-build --javabase=@bazel_tools//tools/jdk:remote_jdk11
-build --java_toolchain=@bazel_tools//tools/jdk:toolchain_java11
-build --host_javabase=@bazel_tools//tools/jdk:remote_jdk11
-build --host_java_toolchain=@bazel_tools//tools/jdk:toolchain_java11
+# Target/host Java version. Under rules_java + Bzlmod, a matching hermetic
+# JDK toolchain is registered and fetched automatically -- there's no more
+# --javabase/--host_javabase/--java_toolchain flags to wire up by hand.
+build --java_language_version=11
+build --tool_java_language_version=11
 
 # Common Bazel settings for JavaScript/NodeJS workspaces
 # This rc file is automatically discovered when Bazel is run in this workspace,
@@ -63,18 +56,9 @@ run:debug --define=VERBOSE_LOGS=1 -- --node_options=--inspect-brk
 # The following option will change the build output of certain rules such as terser and may not be desirable in all cases
 build:debug --compilation_mode=dbg
 
-# Turn off legacy external runfiles
-# This prevents accidentally depending on this feature, which Bazel will remove.
-build --nolegacy_external_runfiles
-
-# Turn on --incompatible_strict_action_env which was on by default
-# in Bazel 0.21.0 but turned off again in 0.22.0. Follow
-# https://github.com/bazelbuild/bazel/issues/7026 for more details.
-# This flag is needed to so that the bazel cache is not invalidated
-# when running bazel via `yarn bazel`.
-# See https://github.com/angular/angular/issues/27514.
-build --incompatible_strict_action_env
-run --incompatible_strict_action_env
+# Both --nolegacy_external_runfiles and --incompatible_strict_action_env used
+# to be flags flipped here to opt in early; their behavior has since become
+# Bazel's permanent, unconditional default, and the flags no longer exist.
 
 # When running `bazel coverage` --instrument_test_targets needs to be set in order to 
 # collect coverage information from test targets

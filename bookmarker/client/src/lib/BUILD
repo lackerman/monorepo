@@ -1,9 +1,10 @@
-load("@npm//@bazel/typescript:index.bzl", "ts_library")
+load("@aspect_rules_ts//ts:defs.bzl", "ts_project")
 
-ts_library(
+ts_project(
     name = "lib",
     srcs = glob(["*.ts"]),
-    tsconfig = "//:tsconfig.json",
+    declaration = False,
+    tsconfig = "//:tsconfig",
     visibility = [
         "//bookmarker/client/src:__subpackages__",
     ],

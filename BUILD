@@ -1,5 +1,9 @@
-load("@com_github_bazelbuild_buildtools//buildifier:def.bzl", "buildifier")
+load("@aspect_rules_ts//ts:defs.bzl", "ts_config")
 load("@bazel_gazelle//:def.bzl", "gazelle")
+load("@buildifier_prebuilt//:rules.bzl", "buildifier")
+load("@npm//:defs.bzl", "npm_link_all_packages")
+
+npm_link_all_packages(name = "node_modules")
 
 buildifier(
     name = "buildifier",
@@ -8,15 +12,11 @@ buildifier(
 # Add rules here to build your software
 # See https://docs.bazel.build/versions/master/build-ref.html#BUILD_files
 
-# Allow any ts_library rules in this workspace to reference the config
-# Note: if you move the tsconfig.json file to a subdirectory, you can add an alias() here instead
-#   so that ts_library rules still use it by default.
-#   See https://www.npmjs.com/package/@bazel/typescript#installation
-exports_files(
-    [
-        "tsconfig.json",
-    ],
-    # https://docs.bazel.build/versions/master/skylark/build-style.html#visibility
+# Allow any ts_project rules in this workspace to reference the config by
+# depending on `//:tsconfig`.
+ts_config(
+    name = "tsconfig",
+    src = "tsconfig.json",
     visibility = ["//:__subpackages__"],
 )
 

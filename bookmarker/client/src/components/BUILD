@@ -1,17 +1,17 @@
-load("@npm//@bazel/typescript:index.bzl", "ts_library")
+load("@aspect_rules_ts//ts:defs.bzl", "ts_project")
 
-ts_library(
+ts_project(
     name = "components",
     srcs = glob(["*.tsx"]),
-    tsconfig = "//:tsconfig.json",
+    declaration = False,
+    tsconfig = "//:tsconfig",
     visibility = [
         "//bookmarker/client/src:__subpackages__",
     ],
     deps = [
-        "@npm//@types/react",
-        "@npm//@types/react-dom",
-        "@npm//react",
-        "@npm//react-dom",
-        "@npm//typescript",
+        "//:node_modules/@types/react",
+        "//:node_modules/@types/react-dom",
+        "//:node_modules/react",
+        "//:node_modules/react-dom",
     ],
 )
