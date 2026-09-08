@@ -25,7 +25,8 @@ jobs:
 
     - name: Dump resolved pnpm-lock.yaml (debug)
       run: |
-        "${GITHUB_WORKSPACE}/bin/bazel" build //bookmarker/client/src:bundle || true
+        "${GITHUB_WORKSPACE}/bin/bazel" shutdown
+        "${GITHUB_WORKSPACE}/bin/bazel" build //... || true
         OUTPUT_BASE=$("${GITHUB_WORKSPACE}/bin/bazel" info output_base)
         find "$OUTPUT_BASE/external" -maxdepth 2 -iname "pnpm-lock.yaml" -exec echo {} \; -exec cat {} \;
 
