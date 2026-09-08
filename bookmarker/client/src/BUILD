@@ -2,7 +2,7 @@ package(default_visibility = ["//visibility:public"])
 
 load("@aspect_rules_esbuild//esbuild:defs.bzl", "esbuild")
 load("@aspect_rules_ts//ts:defs.bzl", "ts_project")
-load("//:node_modules/http-server/package_json.bzl", http_server_bin = "bin")
+load("@npm//:node_modules/http-server/package_json.bzl", http_server_bin = "bin")
 
 ts_project(
     name = "bookmarker_lib",
