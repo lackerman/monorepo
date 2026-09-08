@@ -23,13 +23,6 @@ jobs:
         mv bazelisk-linux-amd64 "${GITHUB_WORKSPACE}/bin/bazel"
         chmod +x "${GITHUB_WORKSPACE}/bin/bazel"
 
-    - name: Dump resolved pnpm-lock.yaml (debug)
-      run: |
-        "${GITHUB_WORKSPACE}/bin/bazel" shutdown
-        "${GITHUB_WORKSPACE}/bin/bazel" build //... || true
-        OUTPUT_BASE=$("${GITHUB_WORKSPACE}/bin/bazel" info output_base)
-        find "$OUTPUT_BASE/external" -maxdepth 2 -iname "pnpm-lock.yaml" -exec echo {} \; -exec cat {} \;
-
     - name: Test
       run: |
         "${GITHUB_WORKSPACE}/bin/bazel" test //...

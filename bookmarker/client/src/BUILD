@@ -1,6 +1,5 @@
 package(default_visibility = ["//visibility:public"])
 
-load("@aspect_bazel_lib//lib:directory_path.bzl", "directory_path")
 load("@aspect_rules_esbuild//esbuild:defs.bzl", "esbuild")
 load("@aspect_rules_js//js:defs.bzl", "js_binary")
 load("@aspect_rules_ts//ts:defs.bzl", "ts_project")
@@ -43,24 +42,17 @@ filegroup(
     ],
 )
 
-directory_path(
-    name = "http_server_bin",
-    directory = "//:node_modules/http-server",
-    path = "bin/http-server",
-)
-
 # Serves the bundled client, either for local development (`bazel run`) or
 # as a production smoke check of the built assets.
 js_binary(
     name = "devserver",
     args = [
-        "-p",
         "3000",
-        "./bookmarker/client/src/",
+        "bookmarker/client/src",
     ],
     data = [
         ":bundle",
         ":static_files",
     ],
-    entry_point = ":http_server_bin",
+    entry_point = "serve.js",
 )
