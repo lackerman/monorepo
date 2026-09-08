@@ -46,5 +46,5 @@ multirun(
         ":client",
         ":server",
     ],
-    parallel = True,
+    jobs = 0,  # 0 = run all commands in parallel
 )

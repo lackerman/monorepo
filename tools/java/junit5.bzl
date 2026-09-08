@@ -3,7 +3,7 @@ Credit to @bmuschko see https://github.com/bmuschko/bazel-examples/tree/master/j
 Creates a new rule, 'java_junit5_test', that allows you to use junit5 using based on teh default java_test rule
 """
 
-load("@rules_java//java:defs.bzl", "java_test")
+load("@rules_java//java:defs.bzl", java_test_rule = "java_test")
 
 def java_junit5_test(name, srcs, test_package, deps = [], runtime_deps = [], **kwargs):
     """
@@ -33,7 +33,7 @@ def java_junit5_test(name, srcs, test_package, deps = [], runtime_deps = [], **k
     else:
         fail("must specify 'test_package'")
 
-    native.java_test(
+    java_test_rule(
         name = name,
         srcs = srcs,
         use_testrunner = False,
