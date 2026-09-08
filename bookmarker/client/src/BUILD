@@ -1,8 +1,8 @@
 package(default_visibility = ["//visibility:public"])
 
 load("@aspect_rules_esbuild//esbuild:defs.bzl", "esbuild")
-load("@aspect_rules_js//js:defs.bzl", "js_binary")
 load("@aspect_rules_ts//ts:defs.bzl", "ts_project")
+load("//:node_modules/http-server/package_json.bzl", http_server_bin = "bin")
 
 ts_project(
     name = "bookmarker_lib",
@@ -44,7 +44,7 @@ filegroup(
 
 # Serves the bundled client, either for local development (`bazel run`) or
 # as a production smoke check of the built assets.
-js_binary(
+http_server_bin.http_server_binary(
     name = "devserver",
     args = [
         "-p",
@@ -54,7 +54,5 @@ js_binary(
     data = [
         ":bundle",
         ":static_files",
-        "//:node_modules/http-server",
     ],
-    entry_point = "//:node_modules/http-server/bin/http-server",
 )

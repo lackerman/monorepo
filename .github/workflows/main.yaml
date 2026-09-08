@@ -27,12 +27,6 @@ jobs:
       run: |
         "${GITHUB_WORKSPACE}/bin/bazel" test //...
 
-    - name: Show linked npm targets (debug)
-      if: always()
-      run: |
-        "${GITHUB_WORKSPACE}/bin/bazel" query 'kind(alias, //:node_modules/*)' || true
-        cat pnpm-lock.yaml || true
-
     - name: Build
       run: |
         "${GITHUB_WORKSPACE}/bin/bazel" build //...
