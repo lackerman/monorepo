@@ -112,6 +112,7 @@ bazel_dep(name = "aspect_rules_esbuild", version = "0.27.0")
 npm = use_extension("@aspect_rules_js//npm:extensions.bzl", "npm")
 npm.npm_translate_lock(
     name = "npm",
+    pnpm_lock = "//:pnpm-lock.yaml",
     yarn_lock = "//:yarn.lock",
     verify_node_modules_ignored = "//:.bazelignore",
 )
