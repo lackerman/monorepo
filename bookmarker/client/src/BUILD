@@ -4,17 +4,22 @@ load("@aspect_rules_esbuild//esbuild:defs.bzl", "esbuild")
 load("@aspect_rules_js//js:defs.bzl", "js_binary")
 load("@aspect_rules_ts//ts:defs.bzl", "ts_project")
 
+# components/ and lib/ have no BUILD files of their own -- App.tsx imports
+# from them by plain relative path, and ts_project resolving that across a
+# Bazel package boundary (as separate ts_project deps) needs more than
+# rules_ts's default cross-project wiring gives us. Compiling everything as
+# one TypeScript project sidesteps that entirely.
 ts_project(
     name = "bookmarker_lib",
-    srcs = [
-        "App.tsx",
-        "index.tsx",
-    ],
+    srcs = glob([
+        "*.ts",
+        "*.tsx",
+        "components/*.tsx",
+        "lib/*.ts",
+    ]),
     transpiler = "tsc",
     tsconfig = "//:tsconfig",
     deps = [
-        "//bookmarker/client/src/components",
-        "//bookmarker/client/src/lib",
         "//:node_modules/@types/lodash",
         "//:node_modules/@types/react",
         "//:node_modules/@types/react-dom",
