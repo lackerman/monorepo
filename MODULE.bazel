@@ -45,7 +45,7 @@ maven.install(
         # Logging dependencies
         "ch.qos.logback:logback-classic:1.2.3",
         # Lombok dependencies
-        "org.projectlombok:lombok:1.18.12",
+        "org.projectlombok:lombok:1.18.34",
         # @Inject dependency
         "javax.inject:javax.inject:1",
         # Google Findbugs - needed for Data resolution
