@@ -21,11 +21,13 @@ bazel run //bookmarker/server/src/main/java/me/a6n/bookmarker:app_deploy.jar
 
 ## TypeScript / React client
 
-Dependencies come from `yarn.lock` via
-[aspect_rules_js](https://github.com/aspect-build/rules_js). After editing
-`package.json`, refresh the lock file the normal way:
+Dependencies are declared in `package.json`/`yarn.lock` as usual, but Bazel
+resolves them from `pnpm-lock.yaml` via
+[aspect_rules_js](https://github.com/aspect-build/rules_js) (it needs a pnpm
+lock file, not a yarn one). After editing `package.json`:
 ```shell script
-yarn install
+yarn install       # refresh yarn.lock the normal way
+pnpm import        # regenerate pnpm-lock.yaml from yarn.lock
 ```
 
 Run the client dev server:

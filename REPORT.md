@@ -84,4 +84,6 @@ CI or a developer's machine, both of which have normal internet access.
   against the dead jcenter mirror, was removed rather than carried
   forward).
 - Run `yarn install` to refresh `yarn.lock` now that the Bazel-specific
-  `@bazel/*` npm packages have been dropped from `package.json`.
+  `@bazel/*` npm packages have been dropped from `package.json`, then
+  `pnpm import` to regenerate `pnpm-lock.yaml` from it (Bazel resolves JS
+  dependencies from the pnpm lock file, not `yarn.lock`, directly).
