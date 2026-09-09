@@ -132,8 +132,12 @@ bazel_dep(name = "rules_pkg", version = "1.3.0")
 oci = use_extension("@rules_oci//oci:extensions.bzl", "oci")
 oci.pull(
     name = "java11_arm",
-    image = "index.docker.io/library/openjdk",
-    tag = "latest",
+    # Docker Hub's official "openjdk" image (previously referenced here via
+    # the "latest" tag) was deprecated and removed years ago. Eclipse
+    # Temurin is the actively maintained successor; pin the JRE 11 variant
+    # to match this repo's --java_language_version=11.
+    image = "index.docker.io/eclipse-temurin",
+    tag = "11-jre",
 )
 use_repo(oci, "java11_arm")
 
