@@ -18,14 +18,6 @@ default_java_toolchain(
 
 java_plugin(
     name = "lombok_plugin",
-    # Micronaut's compile-time processors (also java_plugins, in
-    # tools/java:io_micronaut_annotation_lib) need to see the fields/methods
-    # Lombok adds -- e.g. Micronaut Data generating a repository method
-    # against a Lombok @Data entity's id property and setters. That only
-    # works if Lombok's own expansion isn't skipped by turbine's reduced
-    # header compilation, which by default it is; generates_api = True
-    # forces a full javac-based header compile instead.
-    generates_api = True,
     processor_class = "lombok.launch.AnnotationProcessorHider$AnnotationProcessor",
     deps = [
         "@maven//:org_projectlombok_lombok",

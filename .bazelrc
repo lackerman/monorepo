@@ -3,6 +3,12 @@
 # --javabase/--host_javabase/--java_toolchain flags to wire up by hand.
 build --java_language_version=11
 build --tool_java_language_version=11
+# Turbine (Bazel's reduced-classpath header compiler) explicitly refuses
+# to run under Lombok ("Turbine is not currently supported by lombok"),
+# which breaks compile-time processors like Micronaut Data that need to
+# see Lombok-generated members. Fall back to full javac for header jars.
+build --nojava_header_compilation
+
 # (Which JDK actually compiles for that language level is pinned via a
 # custom registered toolchain -- see tools/java/BUILD -- since
 # --java_runtime_version/--tool_java_runtime_version don't affect
