@@ -102,9 +102,11 @@ use_repo(maven, "maven")
 
 bazel_dep(name = "rules_scala", version = "7.2.6", repo_name = "io_bazel_rules_scala")
 
-# Pin the same 2.13.x version the old WORKSPACE config used.
+# rules_scala 7.2.6 only pins toolchain artifacts for specific patch
+# versions per minor line; 2.13.18 is the one it ships for 2.13.x (the old
+# WORKSPACE config's 2.13.5 predates this release and isn't available).
 scala_config = use_extension("@io_bazel_rules_scala//scala/extensions:config.bzl", "scala_config")
-scala_config.settings(scala_version = "2.13.5")
+scala_config.settings(scala_version = "2.13.18")
 use_repo(scala_config, "rules_scala_config")
 
 scala_deps = use_extension("@io_bazel_rules_scala//scala/extensions:deps.bzl", "scala_deps")
