@@ -151,6 +151,10 @@ oci.pull(
     # Temurin is the actively maintained successor; pin the JRE 11 variant
     # to match this repo's --java_language_version=11.
     image = "index.docker.io/library/eclipse-temurin",
+    platforms = [
+        "linux/amd64",
+        "linux/arm64/v8",
+    ],
     tag = "11-jre",
 )
 use_repo(oci, "java11_arm")
