@@ -102,15 +102,13 @@ use_repo(maven, "maven")
 
 bazel_dep(name = "rules_scala", version = "7.2.6", repo_name = "io_bazel_rules_scala")
 
-# rules_scala's default Scala version's toolchain repo is broken under
-# Bzlmod (github.com/bazel-contrib/rules_scala/issues -- unrelated to this
-# migration); pin the same 2.13.x version the old WORKSPACE config used,
-# which works.
+# Pin the same 2.13.x version the old WORKSPACE config used.
 scala_config = use_extension("@io_bazel_rules_scala//scala/extensions:config.bzl", "scala_config")
 scala_config.settings(scala_version = "2.13.5")
 use_repo(scala_config, "rules_scala_config")
 
 scala_deps = use_extension("@io_bazel_rules_scala//scala/extensions:deps.bzl", "scala_deps")
+scala_deps.scala()
 use_repo(scala_deps, "rules_scala_toolchains")
 
 register_toolchains("@rules_scala_toolchains//...:all")
