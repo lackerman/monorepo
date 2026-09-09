@@ -157,7 +157,7 @@ oci.pull(
     ],
     tag = "11-jre",
 )
-use_repo(oci, "java11_arm")
+use_repo(oci, "java11_arm", "java11_arm_linux_amd64", "java11_arm_linux_arm64_v8")
 
 # ---------------------------------------------------------------------------
 # Dev tooling: buildifier + running multiple dev servers with one command

@@ -4,6 +4,7 @@ ts_project(
     name = "lib",
     srcs = glob(["*.ts"]),
     declaration = False,
+    transpiler = "tsc",
     tsconfig = "//:tsconfig",
     visibility = [
         "//bookmarker/client/src:__subpackages__",

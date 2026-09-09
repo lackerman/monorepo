@@ -11,6 +11,7 @@ ts_project(
         "index.tsx",
     ],
     declaration = False,
+    transpiler = "tsc",
     tsconfig = "//:tsconfig",
     deps = [
         "//bookmarker/client/src/components",
