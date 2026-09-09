@@ -12,7 +12,6 @@ load("@aspect_rules_ts//ts:defs.bzl", "ts_project")
 ts_project(
     name = "bookmarker_lib",
     srcs = glob([
-        "*.ts",
         "*.tsx",
         "components/*.tsx",
         "lib/*.ts",
