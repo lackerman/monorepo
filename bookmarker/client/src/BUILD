@@ -10,7 +10,6 @@ ts_project(
         "App.tsx",
         "index.tsx",
     ],
-    declaration = False,
     transpiler = "tsc",
     tsconfig = "//:tsconfig",
     deps = [

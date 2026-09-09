@@ -3,7 +3,6 @@ load("@aspect_rules_ts//ts:defs.bzl", "ts_project")
 ts_project(
     name = "lib",
     srcs = glob(["*.ts"]),
-    declaration = False,
     transpiler = "tsc",
     tsconfig = "//:tsconfig",
     visibility = [
