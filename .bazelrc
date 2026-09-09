@@ -3,14 +3,10 @@
 # --javabase/--host_javabase/--java_toolchain flags to wire up by hand.
 build --java_language_version=11
 build --tool_java_language_version=11
-
-# Pin the actual JDK *runtime* used to compile and run the annotation
-# processor toolchain (separate from --java_language_version, which only
-# picks target bytecode level -- left unset, rules_java defaults to the
-# latest hermetic JDK it knows about, which outran Lombok's javac-internals
-# compatibility). 21 is an LTS release Lombok fully supports.
-build --java_runtime_version=remotejdk_21
-build --tool_java_runtime_version=remotejdk_21
+# (Which JDK actually compiles for that language level is pinned via a
+# custom registered toolchain -- see tools/java/BUILD -- since
+# --java_runtime_version/--tool_java_runtime_version don't affect
+# rules_java's default_java_toolchain, whose compiling JDK is hardcoded.)
 
 # Common Bazel settings for JavaScript/NodeJS workspaces
 # This rc file is automatically discovered when Bazel is run in this workspace,
