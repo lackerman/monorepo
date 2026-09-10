@@ -43,7 +43,12 @@ java_plugin(
         "@maven//:io_micronaut_micronaut_aop",
         "@maven//:io_micronaut_micronaut_inject",
         "@maven//:io_micronaut_micronaut_inject_java",
-        "@maven//:io_micronaut_micronaut_validation",
+        # Micronaut 4+ moved validation to its own group/artifact and
+        # split the annotation processor (ValidationVisitor, discovered
+        # via ServiceLoader by TypeElementVisitorProcessor above) out
+        # into micronaut-validation-processor.
+        "@maven//:io_micronaut_validation_micronaut_validation",
+        "@maven//:io_micronaut_validation_micronaut_validation_processor",
     ],
 )
 
@@ -55,7 +60,12 @@ java_plugin(
         "@maven//:io_micronaut_micronaut_aop",
         "@maven//:io_micronaut_micronaut_inject",
         "@maven//:io_micronaut_micronaut_inject_java",
-        "@maven//:io_micronaut_micronaut_validation",
+        # Micronaut 4+ moved validation to its own group/artifact and
+        # split the annotation processor (ValidationVisitor, discovered
+        # via ServiceLoader by TypeElementVisitorProcessor above) out
+        # into micronaut-validation-processor.
+        "@maven//:io_micronaut_validation_micronaut_validation",
+        "@maven//:io_micronaut_validation_micronaut_validation_processor",
     ],
 )
 
@@ -67,7 +77,12 @@ java_plugin(
         "@maven//:io_micronaut_micronaut_aop",
         "@maven//:io_micronaut_micronaut_inject",
         "@maven//:io_micronaut_micronaut_inject_java",
-        "@maven//:io_micronaut_micronaut_validation",
+        # Micronaut 4+ moved validation to its own group/artifact and
+        # split the annotation processor (ValidationVisitor, discovered
+        # via ServiceLoader by TypeElementVisitorProcessor above) out
+        # into micronaut-validation-processor.
+        "@maven//:io_micronaut_validation_micronaut_validation",
+        "@maven//:io_micronaut_validation_micronaut_validation_processor",
     ],
 )
 
@@ -79,7 +94,12 @@ java_plugin(
         "@maven//:io_micronaut_micronaut_aop",
         "@maven//:io_micronaut_micronaut_inject",
         "@maven//:io_micronaut_micronaut_inject_java",
-        "@maven//:io_micronaut_micronaut_validation",
+        # Micronaut 4+ moved validation to its own group/artifact and
+        # split the annotation processor (ValidationVisitor, discovered
+        # via ServiceLoader by TypeElementVisitorProcessor above) out
+        # into micronaut-validation-processor.
+        "@maven//:io_micronaut_validation_micronaut_validation",
+        "@maven//:io_micronaut_validation_micronaut_validation_processor",
     ],
 )
 
@@ -91,7 +111,12 @@ java_plugin(
         "@maven//:io_micronaut_micronaut_aop",
         "@maven//:io_micronaut_micronaut_inject",
         "@maven//:io_micronaut_micronaut_inject_java",
-        "@maven//:io_micronaut_micronaut_validation",
+        # Micronaut 4+ moved validation to its own group/artifact and
+        # split the annotation processor (ValidationVisitor, discovered
+        # via ServiceLoader by TypeElementVisitorProcessor above) out
+        # into micronaut-validation-processor.
+        "@maven//:io_micronaut_validation_micronaut_validation",
+        "@maven//:io_micronaut_validation_micronaut_validation_processor",
     ],
 )
 
@@ -103,7 +128,12 @@ java_plugin(
         "@maven//:io_micronaut_micronaut_aop",
         "@maven//:io_micronaut_micronaut_inject",
         "@maven//:io_micronaut_micronaut_inject_java",
-        "@maven//:io_micronaut_micronaut_validation",
+        # Micronaut 4+ moved validation to its own group/artifact and
+        # split the annotation processor (ValidationVisitor, discovered
+        # via ServiceLoader by TypeElementVisitorProcessor above) out
+        # into micronaut-validation-processor.
+        "@maven//:io_micronaut_validation_micronaut_validation",
+        "@maven//:io_micronaut_validation_micronaut_validation_processor",
     ],
 )
 
@@ -123,6 +153,11 @@ java_library(
         "@maven//:io_micronaut_micronaut_aop",
         "@maven//:io_micronaut_micronaut_inject",
         "@maven//:io_micronaut_micronaut_inject_java",
-        "@maven//:io_micronaut_micronaut_validation",
+        # Micronaut 4+ moved validation to its own group/artifact and
+        # split the annotation processor (ValidationVisitor, discovered
+        # via ServiceLoader by TypeElementVisitorProcessor above) out
+        # into micronaut-validation-processor.
+        "@maven//:io_micronaut_validation_micronaut_validation",
+        "@maven//:io_micronaut_validation_micronaut_validation_processor",
     ],
 )
