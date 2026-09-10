@@ -3,17 +3,19 @@ package(default_visibility = ["//visibility:public"])
 load("@rules_java//java:defs.bzl", "java_library", "java_plugin")
 load("@rules_java//toolchains:default_java_toolchain.bzl", "default_java_toolchain")
 
-# rules_java's built-in default_java_toolchain always compiles with JDK 25
-# (its java_runtime is hardcoded, independent of --java_runtime_version --
-# see rules_java's own toolchains/default_java_toolchain.bzl), which Lombok
-# doesn't support: annotation processing crashes with a
-# NoSuchFieldException on internal javac types. Register our own copy of
-# that toolchain with JDK 21 -- an LTS release Lombok fully supports -- for
-# the same java_language_version=11 target level. See MODULE.bazel's
+# rules_java's built-in default_java_toolchain always compiles with
+# whichever JDK it hardcodes as its default (independent of
+# --java_runtime_version -- see rules_java's own
+# toolchains/default_java_toolchain.bzl); that version can outrun what
+# Lombok has caught up to. Register our own copy of that toolchain with an
+# explicit JDK 25 (Lombok added JDK 25 support in 1.18.46) for the same
+# java_language_version=25 target level. remotejdk_25 is also the newest
+# JDK rules_java ships a pre-built remote toolchain for -- JDK 27 isn't
+# available as a vetted Bazel toolchain yet. See MODULE.bazel's
 # register_toolchains() call.
 default_java_toolchain(
     name = "toolchain",
-    java_runtime = "@rules_java//toolchains:remotejdk_21",
+    java_runtime = "@rules_java//toolchains:remotejdk_25",
 )
 
 java_plugin(
