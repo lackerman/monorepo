@@ -1,31 +1,33 @@
-load("@io_bazel_rules_docker//container:container.bzl", "container_image", "container_push")
-load("@com_github_atlassian_bazel_tools//multirun:def.bzl", "command", "multirun")
+load("@rules_multirun//:defs.bzl", "command", "multirun")
+load("@rules_oci//oci:defs.bzl", "oci_image", "oci_push")
+load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
 
-container_image(
+pkg_tar(
+    name = "server_layer",
+    srcs = [
+        "//bookmarker/server/src/main/java/me/a6n/bookmarker:app_deploy.jar",
+    ],
+    package_dir = "/app",
+)
+
+oci_image(
     name = "server_image",
-    base = "@java11_arm//image",
-    directory = "/app",
+    base = "@java11_arm",
     entrypoint = [
         "java",
         "-jar",
         "/app/app_deploy.jar",
     ],
-    files = [
-        "//bookmarker/server/src/main/java/me/a6n/bookmarker:app_deploy.jar",
-    ],
-    ports = [
-        "8080/tcp",
-    ],
+    exposed_ports = ["8080/tcp"],
+    tars = [":server_layer"],
     workdir = "/app",
 )
 
-container_push(
+oci_push(
     name = "server_image_push",
-    format = "Docker",
     image = ":server_image",
-    registry = "docker.pkg.github.com",
-    repository = "lackerman/monorepo/bookmarker_server",
-    tag = "0.0.1-alpha-1",
+    remote_tags = ["0.0.1-alpha-1"],
+    repository = "docker.pkg.github.com/lackerman/monorepo/bookmarker_server",
 )
 
 command(
@@ -44,5 +46,5 @@ multirun(
         ":client",
         ":server",
     ],
-    parallel = True,
+    jobs = 0,  # 0 = run all commands in parallel
 )

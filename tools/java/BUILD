@@ -1,6 +1,20 @@
 package(default_visibility = ["//visibility:public"])
 
 load("@rules_java//java:defs.bzl", "java_library", "java_plugin")
+load("@rules_java//toolchains:default_java_toolchain.bzl", "default_java_toolchain")
+
+# rules_java's built-in default_java_toolchain always compiles with JDK 25
+# (its java_runtime is hardcoded, independent of --java_runtime_version --
+# see rules_java's own toolchains/default_java_toolchain.bzl), which Lombok
+# doesn't support: annotation processing crashes with a
+# NoSuchFieldException on internal javac types. Register our own copy of
+# that toolchain with JDK 21 -- an LTS release Lombok fully supports -- for
+# the same java_language_version=11 target level. See MODULE.bazel's
+# register_toolchains() call.
+default_java_toolchain(
+    name = "toolchain",
+    java_runtime = "@rules_java//toolchains:remotejdk_21",
+)
 
 java_plugin(
     name = "lombok_plugin",
