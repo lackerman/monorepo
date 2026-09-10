@@ -89,11 +89,12 @@ maven.install(
         # Micronaut Testing dependencies
         "io.micronaut.test:micronaut-test-junit5:5.1.1",
         "io.micronaut.test:micronaut-test-core:5.1.1",
-        # JUnit 5 dependencies
-        "org.junit.jupiter:junit-jupiter-api:5.6.2",
-        "org.junit.jupiter:junit-jupiter-params:5.6.2",
-        "org.junit.jupiter:junit-jupiter-engine:5.6.2",
-        "org.junit.platform:junit-platform-console:1.4.2",
+        # JUnit 5 dependencies (jupiter/platform version numbers move in
+        # lockstep -- 5.14.4 pairs with platform 1.14.4)
+        "org.junit.jupiter:junit-jupiter-api:5.14.4",
+        "org.junit.jupiter:junit-jupiter-params:5.14.4",
+        "org.junit.jupiter:junit-jupiter-engine:5.14.4",
+        "org.junit.platform:junit-platform-console:1.14.4",
         # Parse HTML
         "org.jsoup:jsoup:1.13.1",
     ],
