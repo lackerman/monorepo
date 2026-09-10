@@ -70,9 +70,10 @@ java_plugin(
 )
 
 java_plugin(
-    name = "io_micronaut_package_configuration_inject_processor",
+    name = "io_micronaut_package_element_visitor_processor",
     generates_api = True,
-    processor_class = "io.micronaut.annotation.processing.PackageConfigurationInjectProcessor",
+    # Renamed from PackageConfigurationInjectProcessor in current Micronaut.
+    processor_class = "io.micronaut.annotation.processing.PackageElementVisitorProcessor",
     deps = [
         "@maven//:io_micronaut_micronaut_aop",
         "@maven//:io_micronaut_micronaut_inject",
@@ -104,9 +105,11 @@ java_plugin(
 )
 
 java_plugin(
-    name = "io_micronaut_service_description_processor",
+    name = "io_micronaut_mixin_visitor_processor",
     generates_api = True,
-    processor_class = "io.micronaut.annotation.processing.ServiceDescriptionProcessor",
+    # New in current Micronaut, alongside the above; ServiceDescriptionProcessor
+    # (registered here in the old Micronaut 2.x version) no longer exists.
+    processor_class = "io.micronaut.annotation.processing.MixinVisitorProcessor",
     deps = [
         "@maven//:io_micronaut_micronaut_aop",
         "@maven//:io_micronaut_micronaut_inject",
@@ -143,9 +146,9 @@ java_library(
         "io_micronaut_data_micronaut_data_processor",
         "io_micronaut_type_element_visitor_processor",
         "io_micronaut_aggregating_type_element_visitor_processor",
-        "io_micronaut_package_configuration_inject_processor",
+        "io_micronaut_package_element_visitor_processor",
         "io_micronaut_bean_definition_inject_processor",
-        "io_micronaut_service_description_processor",
+        "io_micronaut_mixin_visitor_processor",
     ],
     visibility = ["//visibility:public"],
     exports = [
