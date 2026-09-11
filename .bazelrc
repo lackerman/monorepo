@@ -1,7 +1,15 @@
 # Target/host Java version. Under rules_java + Bzlmod, a matching hermetic
 # JDK toolchain is registered and fetched automatically -- there's no more
 # --javabase/--host_javabase/--java_toolchain flags to wire up by hand.
-build --java_language_version=11
+build --java_language_version=25
+# Host/tool-side Java (used to compile+run Bazel's own build-time Java
+# tools, e.g. rules_jvm_external's manifest stamper) stays independent of
+# our target language level. It runs on whatever JDK rules_java resolves
+# for --tool_java_runtime_version (still an older default); bumping
+# --tool_java_language_version to 25 alongside it made those tools compile
+# to newer bytecode than that JDK can execute
+# (UnsupportedClassVersionError). Leaving it at 11 keeps host tools on the
+# same well-tested path as before.
 build --tool_java_language_version=11
 # Turbine (Bazel's reduced-classpath header compiler) explicitly refuses
 # to run under Lombok ("Turbine is not currently supported by lombok"),
@@ -12,7 +20,10 @@ build --nojava_header_compilation
 # (Which JDK actually compiles for that language level is pinned via a
 # custom registered toolchain -- see tools/java/BUILD -- since
 # --java_runtime_version/--tool_java_runtime_version don't affect
-# rules_java's default_java_toolchain, whose compiling JDK is hardcoded.)
+# rules_java's default_java_toolchain, whose compiling JDK is hardcoded.
+# JDK 25 is the highest version rules_java ships a pre-built remote JDK
+# for as of this writing -- JDK 27, the newest LTS, isn't available as a
+# vetted Bazel toolchain yet.)
 
 # Common Bazel settings for JavaScript/NodeJS workspaces
 # This rc file is automatically discovered when Bazel is run in this workspace,

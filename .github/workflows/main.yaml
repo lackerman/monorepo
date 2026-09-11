@@ -3,10 +3,13 @@ name: CI
 on:
   push: {}
 
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
-    
+
     steps:
     - uses: actions/checkout@v4
 
@@ -23,6 +26,31 @@ jobs:
         mv bazelisk-linux-amd64 "${GITHUB_WORKSPACE}/bin/bazel"
         chmod +x "${GITHUB_WORKSPACE}/bin/bazel"
 
+    - name: Set up Node
+      uses: actions/setup-node@v4
+      with:
+        node-version: "22"
+
+    # aspect_rules_js consumes pnpm-lock.yaml as pre-resolved truth -- it
+    # doesn't re-resolve npm dependency versions itself. Regenerate it here
+    # (where real npm registry access exists) whenever package.json has
+    # moved on, rather than hand-maintaining resolved versions/hashes.
+    - name: Regenerate pnpm-lock.yaml
+      run: |
+        corepack enable
+        corepack prepare pnpm@9 --activate
+        pnpm install --lockfile-only
+
+    - name: Commit regenerated pnpm-lock.yaml
+      run: |
+        if ! git diff --quiet -- pnpm-lock.yaml; then
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add pnpm-lock.yaml
+          git commit -m "chore: regenerate pnpm-lock.yaml [skip ci]"
+          git push
+        fi
+
     - name: Test
       run: |
         "${GITHUB_WORKSPACE}/bin/bazel" test //...
@@ -30,4 +58,3 @@ jobs:
     - name: Build
       run: |
         "${GITHUB_WORKSPACE}/bin/bazel" build //...
-

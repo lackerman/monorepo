@@ -6,8 +6,7 @@ import io.micronaut.http.annotation.*;
 import me.a6n.bookmarker.bookmarks.Bookmark;
 import me.a6n.bookmarker.bookmarks.BookmarkRepository;
 
-import javax.inject.Inject;
-import java.net.MalformedURLException;
+import jakarta.inject.Inject;
 
 @Controller("/bookmarks")
 public class BookmarksController {
@@ -27,7 +26,7 @@ public class BookmarksController {
 
     @Post(consumes = "application/json", produces = "application/json")
     public HttpResponse<Bookmark> add(AddBookmark addBookmark) {
-        Bookmark bookmark = extractor.extract(addBookmark.url).blockingSingle();
+        Bookmark bookmark = extractor.extract(addBookmark.url);
         repository.save(bookmark);
         return HttpResponse.created(bookmark);
     }

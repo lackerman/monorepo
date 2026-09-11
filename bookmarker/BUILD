@@ -12,7 +12,7 @@ pkg_tar(
 
 oci_image(
     name = "server_image",
-    base = "@java11_arm",
+    base = "@java25_arm",
     entrypoint = [
         "java",
         "-jar",
